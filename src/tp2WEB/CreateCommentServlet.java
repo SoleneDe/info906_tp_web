@@ -8,25 +8,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import tp2EJB.Agency;
-import tp2EJB.AgencyOperation;
+import tp2EJB.Entry;
+import tp2EJB.EntryOperation;
 
 /**
- * Servlet implementation class DisplayAgencyServlet
+ * Servlet implementation class CreateCommentServlet
  */
-@WebServlet("/DisplayAgencyServlet")
-public class DisplayAgencyServlet extends HttpServlet {
+@WebServlet("/CreateCommentServlet")
+public class CreateCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	@EJB
-	private AgencyOperation ejb;
+	private EntryOperation ejb;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DisplayAgencyServlet() {
+    public CreateCommentServlet() {
         super();
     }
 
@@ -34,19 +33,19 @@ public class DisplayAgencyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
-		long id_long = Long.parseLong(id);
+		String idE = request.getParameter("idEntry");
+		String name = request.getParameter("name");
+		String content = request.getParameter("content");
+		//Entry addComment(long id, String name, String content) {
 		
-		Agency agency = ejb.getAgency(id_long);
+		long idE_long = Long.parseLong(idE);
 		
-		// Manage session to get username
-		String username = request.getParameter("name");
-		HttpSession session = request.getSession();
-		session.setAttribute("username", username);
-
-		request.setAttribute("agency", agency);
-		request.setAttribute("username", username);
-		request.getRequestDispatcher("/DisplayAgency.jsp").forward(request, response);
+		ejb.addComment(idE_long, name, content);
+		
+		Entry entry = ejb.getEntry(idE_long);
+		
+		request.setAttribute("entry", entry);	
+		request.getRequestDispatcher("/DisplayEntry.jsp").forward(request, response);
 	}
 
 	/**

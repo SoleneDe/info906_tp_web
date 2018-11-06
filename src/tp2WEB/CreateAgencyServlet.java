@@ -37,8 +37,8 @@ public class CreateAgencyServlet extends HttpServlet {
 		
 		Agency agency = ejb.createAgency(name);
 		
-		request.setAttribute("agency", agency);	
-		request.getRequestDispatcher("/DisplayAgency.jsp").forward(request, response);
+		//request.setAttribute("agency", agency);	
+		request.getRequestDispatcher("/index.html").forward(request, response);
 	}
 
 	/**

@@ -37,10 +37,11 @@ public class CreateEntryServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idB = request.getParameter("idBacklog");
-		String name = request.getParameter("name");
 		String priority = request.getParameter("priority");
 		String estimation = request.getParameter("estimation");
 		String description = request.getParameter("description");
+		
+		String name = (String) request.getSession().getAttribute("username"); 
 		
 		long idB_long = Long.parseLong(idB);
 		int priority_int = Integer.parseInt(priority);

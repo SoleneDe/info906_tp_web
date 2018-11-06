@@ -8,7 +8,9 @@
 </head>
 <body>
 	<h1>Agence #${agency.id} "${agency.name}"</h1>
-	<a href="DisplayBacklog.jsp">Afficher backlog (${agency.backlog.size})</a>
+	<p>Bienvenue, ${username} !</p>
+	
+	<a href="/tp2WEB/DisplayBacklogServlet?id=${agency.backlog.id}">Afficher backlog (${agency.backlog.size})</a>
 	
 	<a href="index.html">Revenir à l'accueil</a>
 </body>

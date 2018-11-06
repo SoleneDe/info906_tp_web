@@ -2,9 +2,20 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Index</title>
+<title>Accueil</title>
 </head>
 <body>
-	<p>ça marche</p>
+	<h1>Se connecter</h1>
+	<form action="DisplayAgencyServlet" method="post">
+		Nom : <input type="text" name="name">
+		Agence : <input type="number" name="id">
+		<input type="submit" value="Valider">
+	</form>
+	
+	<h1>Créer une nouvelle agence</h1>
+	<form action="CreateAgencyServlet" method="post">
+		Nom : <input type="text" name ="name">
+		<input type="submit" value="Valider">
+	</form>
 </body>
 </html>
