@@ -13,7 +13,16 @@
 	<h2>Supprimer l'entrée</h2>
 	<form action="/tp2WEB/DeleteEntryServlet" method="post">
 		<input style="visibility:hidden;position:absolute;" name="idEntry" value="${entry.id}"/>
-		<input type="submit" value="Supprimer l'entrée"/>
+		<input type="submit" value="Supprimer"/>
+	</form>
+	
+	<h2>Modifier l'entrée</h2>
+	<form action="/tp2WEB/UpdateEntryServlet" method="post">
+		<input style="visibility:hidden;position:absolute;" name="idEntry" value="${entry.id}"/>
+		Nouvelle priorité : <input type="number" name="priority"/>
+		Nouvelle estimation : <input type="number" name="estimation"/>
+		Nouvelle description : <input type="text" name ="description"/>
+		<input type="submit" value="Modifier"/>
 	</form>
 	
 	<h2>Ajouter un commentaire</h2>

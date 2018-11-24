@@ -30,7 +30,7 @@
 				</br>
 				${e.description}
 				</br>
-				<a href="/tp2WEB/DisplayEntryServlet?id=${e.id}">Afficher les commentaires (${e.comments.size()})</a>
+				<a href="/tp2WEB/DisplayEntryServlet?id=${e.id}">Afficher l'entrée et ses commentaires (${e.comments.size()})</a>
 				<form action="/tp2WEB/DeleteEntryServlet" method="post">
 					<input style="visibility:hidden;position:absolute;" name="idBacklog" value="${backlog.id}"/>
 					<input style="visibility:hidden;position:absolute;" name="idEntry" value="${e.id}"/>
