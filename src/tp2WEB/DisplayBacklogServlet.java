@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tp2EJB.Backlog;
 import tp2EJB.BacklogOperation;
@@ -34,7 +35,21 @@ public class DisplayBacklogServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
-		long id_long = Long.parseLong(id);
+		long id_long;
+		HttpSession session = request.getSession();
+		
+		if (id != null)
+		{
+			id_long = Long.parseLong(id);
+			
+			// Manage session to get backlog id
+			// When using links to go back to the backlog
+			session.setAttribute("idBacklog", id);
+		}
+		else
+		{
+			id_long = Long.parseLong((String) session.getAttribute("idBacklog"));
+		}
 		
 		Backlog backlog = ejb.getBacklog(id_long);
 		

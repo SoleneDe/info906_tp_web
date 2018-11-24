@@ -8,28 +8,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tp2EJB.Backlog;
 import tp2EJB.BacklogOperation;
 import tp2EJB.Entry;
-import tp2EJB.EntryOperation;
 
 /**
- * Servlet implementation class CreateEntryServlet
+ * Servlet implementation class DeleteEntryServlet
  */
-@WebServlet("/CreateEntryServlet")
-public class CreateEntryServlet extends HttpServlet {
+@WebServlet("/DeleteEntryServlet")
+public class DeleteEntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	@EJB
-	private EntryOperation ejbE;
 	@EJB
 	private BacklogOperation ejbB;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateEntryServlet() {
+    public DeleteEntryServlet() {
         super();
     }
 
@@ -37,24 +35,27 @@ public class CreateEntryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String idB = request.getParameter("idBacklog");
-		String priority = request.getParameter("priority");
-		String estimation = request.getParameter("estimation");
-		String description = request.getParameter("description");
-		
-		String name = (String) request.getSession().getAttribute("username"); 
-		
-		long idB_long = Long.parseLong(idB);
-		int priority_int = Integer.parseInt(priority);
-		int estimation_int = Integer.parseInt(estimation);
-		
-		Entry entry = ejbE.createEntry(name, priority_int, estimation_int, description);
-		
-		ejbB.addEntry(idB_long, entry);
 
-//		request.setAttribute("entry", entry);
-//		request.setAttribute("idBacklog", idB); // pour lien de retour vers la backlog
-//		request.getRequestDispatcher("/DisplayEntry.jsp").forward(request, response);
+		String idB = request.getParameter("idBacklog");
+		String idE = request.getParameter("idEntry");
+		
+		long idB_long;
+		long idE_long = Long.parseLong(idE);
+		HttpSession session = request.getSession();
+		
+		if (idB != null)
+		{
+			idB_long = Long.parseLong(idB);
+			
+			// Manage session to get backlog id, to go back to the backlog
+			session.setAttribute("idBacklog", idB);
+		}
+		else
+		{
+			idB_long = Long.parseLong((String) session.getAttribute("idBacklog"));
+		}
+		
+		ejbB.deleteEntry(idB_long, idE_long);
 
 		Backlog backlog = ejbB.getBacklog(idB_long);
 		request.setAttribute("backlog", backlog);	

@@ -10,12 +10,18 @@
 <body>
 	<h1>Entrée #${entry.id}</h1>
 	
+	<h2>Supprimer l'entrée</h2>
+	<form action="/tp2WEB/DeleteEntryServlet" method="post">
+		<input style="visibility:hidden;position:absolute;" name="idEntry" value="${entry.id}"/>
+		<input type="submit" value="Supprimer l'entrée"/>
+	</form>
+	
 	<h2>Ajouter un commentaire</h2>
 	<form action="/tp2WEB/CreateCommentServlet" method="post">
 		<input style="visibility:hidden;position:absolute;" name="idEntry" value="${entry.id}"/>
 		<input style="visibility:hidden;position:absolute;" name="name" value="${username}"/>
-		<input type="text" name ="content">
-		<input type="submit" value="Valider">
+		<input type="text" name ="content" required/>
+		<input type="submit" value="Valider"/>
 	</form>
 	
 	<ul>

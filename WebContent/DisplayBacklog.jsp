@@ -13,10 +13,10 @@
 	<h2>Ajouter une entrée</h2>
 	<form action="/tp2WEB/CreateEntryServlet" method="post">
 		<input style="visibility:hidden;position:absolute;" name="idBacklog" value="${backlog.id}"/>
-		Priorité : <input type="number" name="priority"/>
-		Estimation : <input type="number" name="estimation"/>
-		Description : <input type="text" name ="description">
-		<input type="submit" value="Valider">
+		Priorité : <input type="number" name="priority" required/>
+		Estimation : <input type="number" name="estimation" required/>
+		Description : <input type="text" name ="description" required/>
+		<input type="submit" value="Valider"/>
 	</form>
 	
 	<p>Entrées (${backlog.size})</p>
@@ -31,6 +31,11 @@
 				${e.description}
 				</br>
 				<a href="/tp2WEB/DisplayEntryServlet?id=${e.id}">Afficher les commentaires (${e.comments.size()})</a>
+				<form action="/tp2WEB/DeleteEntryServlet" method="post">
+					<input style="visibility:hidden;position:absolute;" name="idBacklog" value="${backlog.id}"/>
+					<input style="visibility:hidden;position:absolute;" name="idEntry" value="${e.id}"/>
+					<input type="submit" value="Supprimer l'entrée"/>
+				</form>
 			</li>
 		</c:forEach>
 	</ul>
