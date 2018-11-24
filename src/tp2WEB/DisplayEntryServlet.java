@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import tp2EJB.Entry;
 import tp2EJB.EntryOperation;
@@ -34,11 +35,18 @@ public class DisplayEntryServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
+		String idB = request.getParameter("idBacklog"); // pour lien de retour vers la backlog
 		long id_long = Long.parseLong(id);
 		
 		Entry entry = ejb.getEntry(id_long);
-		
+
+		// Manage session to get username
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+
 		request.setAttribute("entry", entry);
+		request.setAttribute("idBacklog", idB);
+		request.setAttribute("username", username);
 		request.getRequestDispatcher("/DisplayEntry.jsp").forward(request, response);
 	}
 

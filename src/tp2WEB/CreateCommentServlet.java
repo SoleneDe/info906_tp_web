@@ -36,7 +36,6 @@ public class CreateCommentServlet extends HttpServlet {
 		String idE = request.getParameter("idEntry");
 		String name = request.getParameter("name");
 		String content = request.getParameter("content");
-		//Entry addComment(long id, String name, String content) {
 		
 		long idE_long = Long.parseLong(idE);
 		

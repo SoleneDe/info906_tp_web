@@ -51,7 +51,8 @@ public class CreateEntryServlet extends HttpServlet {
 		
 		ejbB.addEntry(idB_long, entry);
 
-		request.setAttribute("entry", entry);	
+		request.setAttribute("entry", entry);
+		request.setAttribute("idBacklog", idB); // pour lien de retour vers la backlog
 		request.getRequestDispatcher("/DisplayEntry.jsp").forward(request, response);
 	}
 

@@ -9,6 +9,15 @@
 </head>
 <body>
 	<h1>Entrée #${entry.id}</h1>
+	
+	<h2>Ajouter un commentaire</h2>
+	<form action="/tp2WEB/CreateCommentServlet" method="post">
+		<input style="visibility:hidden;position:absolute;" name="idEntry" value="${entry.id}"/>
+		<input style="visibility:hidden;position:absolute;" name="name" value="${username}"/>
+		<input type="text" name ="content">
+		<input type="submit" value="Valider">
+	</form>
+	
 	<ul>
 		<li>Auteur : ${entry.name}</li>
 		<li>Date de création : ${entry.creation}</li>
@@ -27,6 +36,7 @@
 		</ul>
 	</ul>
 	
+	<a href="/tp2WEB/DisplayBacklogServlet?id=${idBacklog}">Retour à la backlog</a>
 	<a href="index.html">Revenir à l'accueil</a>
 </body>
 </html>
