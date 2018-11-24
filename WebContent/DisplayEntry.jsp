@@ -19,9 +19,9 @@
 	<h2>Modifier l'entrée</h2>
 	<form action="/tp2WEB/UpdateEntryServlet" method="post">
 		<input style="visibility:hidden;position:absolute;" name="idEntry" value="${entry.id}"/>
-		Nouvelle priorité : <input type="number" name="priority"/>
-		Nouvelle estimation : <input type="number" name="estimation"/>
-		Nouvelle description : <input type="text" name ="description"/>
+		Nouvelle priorité : <input type="number" name="priority" value ="${entry.priority}"/>
+		Nouvelle estimation : <input type="number" name="estimation" value="${entry.estimation}"/>
+		Nouvelle description : <input type="text" name ="description" value="${entry.description}"/>
 		<input type="submit" value="Modifier"/>
 	</form>
 	

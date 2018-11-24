@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import tp2EJB.Backlog;
+import tp2EJB.BacklogOperation;
 import tp2EJB.Entry;
 import tp2EJB.EntryOperation;
 
@@ -21,7 +23,9 @@ public class UpdateEntryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	private EntryOperation ejb;
+	private EntryOperation ejbE;
+	@EJB
+	private BacklogOperation ejbB;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -36,36 +40,34 @@ public class UpdateEntryServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String idE = request.getParameter("idEntry");
-		String idB = request.getParameter("idBacklog"); // pour lien de retour vers la backlog
+		String idB = request.getParameter("idBacklog");
 		String name = request.getParameter("name");
 		String priority = request.getParameter("priority");
 		String estimation = request.getParameter("estimation");
 		String description = request.getParameter("description");
 		
 		long idE_long = Long.parseLong(idE);
-		int priority_int, estimation_int;
+		int priority_int = Integer.parseInt(priority);
+		int estimation_int = Integer.parseInt(estimation);
+		
+		Entry entry = ejbE.updateEntry(idE_long, name, priority_int, estimation_int, description);
 
-		if (priority == null)
+		long idB_long;
+		HttpSession session = request.getSession();
+		
+		if (idB != null)
 		{
-			priority_int = -1;
+			idB_long = Long.parseLong(idB);
+			session.setAttribute("idBacklog", idB);
 		}
 		else
 		{
-			priority_int = Integer.parseInt(priority);
-		}
-		if (estimation == null)
-		{
-			estimation_int = -1;
-		}
-		else
-		{
-			estimation_int = Integer.parseInt(estimation);
+			idB_long = Long.parseLong((String) session.getAttribute("idBacklog"));
 		}
 		
-		Entry entry = ejb.updateEntry(idE_long, name, priority_int, estimation_int, description);
+		ejbB.sortEntries(idB_long);
 
 		// Manage session to get username
-		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");
 
 		request.setAttribute("entry", entry);
