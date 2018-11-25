@@ -30,6 +30,7 @@ public class CreateAgencyServlet extends HttpServlet {
     }
 
 	/**
+	 * Create a new agency, with its name
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -30,6 +30,7 @@ public class CreateCommentServlet extends HttpServlet {
     }
 
 	/**
+	 * Add a new comment in an entry
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

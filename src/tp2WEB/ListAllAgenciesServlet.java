@@ -31,6 +31,7 @@ public class ListAllAgenciesServlet extends HttpServlet {
     }
 
 	/**
+	 * To get a list of all agencies in the database, to use it in the index
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

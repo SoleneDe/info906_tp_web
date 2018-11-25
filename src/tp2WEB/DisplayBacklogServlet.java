@@ -31,6 +31,7 @@ public class DisplayBacklogServlet extends HttpServlet {
     }
 
 	/**
+	 * Display a backlog (with the list of all its entries)
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

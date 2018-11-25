@@ -35,6 +35,7 @@ public class UpdateEntryServlet extends HttpServlet {
     }
 
 	/**
+	 * Update an entry, all attributes should be given, not only the ones to change
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -32,6 +32,7 @@ public class DeleteEntryServlet extends HttpServlet {
     }
 
 	/**
+	 * Delete an entry from a backlog
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

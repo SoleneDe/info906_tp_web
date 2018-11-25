@@ -31,6 +31,7 @@ public class DisplayEntryServlet extends HttpServlet {
     }
 
 	/**
+	 * Display an entry (with a list of its comments)
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
