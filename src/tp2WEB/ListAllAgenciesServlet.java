@@ -1,6 +1,7 @@
 package tp2WEB;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -13,10 +14,10 @@ import tp2EJB.Agency;
 import tp2EJB.AgencyOperation;
 
 /**
- * Servlet implementation class CreateAgencyServlet
+ * Servlet implementation class ListAllAgenciesServlet
  */
-@WebServlet("/CreateAgencyServlet")
-public class CreateAgencyServlet extends HttpServlet {
+@WebServlet("/ListAllAgenciesServlet")
+public class ListAllAgenciesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
@@ -25,7 +26,7 @@ public class CreateAgencyServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateAgencyServlet() {
+    public ListAllAgenciesServlet() {
         super();
     }
 
@@ -34,10 +35,12 @@ public class CreateAgencyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
+				
+		Collection<Agency> agencies = ejb.getAllAgencies();
 		
-		Agency agency = ejb.createAgency(name);
-		
-		//request.setAttribute("agency", agency);	
+
+		request.setAttribute("agencies", agencies);	
+		request.setAttribute("name", name);	// pour ré-afficher le nom déjà renseigné
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 

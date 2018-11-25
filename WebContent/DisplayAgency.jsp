@@ -11,6 +11,6 @@
 	<p>Bienvenue, ${username} !</p>
 	<a href="/tp2WEB/DisplayBacklogServlet?id=${agency.backlog.id}">Afficher backlog (${agency.backlog.size})</a>
 	
-	<a href="index.html">Revenir à l'accueil</a>
+	<a href="index.jsp">Revenir à l'accueil</a>
 </body>
 </html>

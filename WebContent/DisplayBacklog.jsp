@@ -40,6 +40,6 @@
 		</c:forEach>
 	</ul>
 	
-	<a href="index.html">Revenir à l'accueil</a>
+	<a href="index.jsp">Revenir à l'accueil</a>
 </body>
 </html>

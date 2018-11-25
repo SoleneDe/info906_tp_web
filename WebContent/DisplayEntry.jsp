@@ -19,9 +19,9 @@
 	<h2>Modifier l'entrée</h2>
 	<form action="/tp2WEB/UpdateEntryServlet" method="post">
 		<input style="visibility:hidden;position:absolute;" name="idEntry" value="${entry.id}"/>
-		Nouvelle priorité : <input type="number" name="priority" value ="${entry.priority}"/>
-		Nouvelle estimation : <input type="number" name="estimation" value="${entry.estimation}"/>
-		Nouvelle description : <input type="text" name ="description" value="${entry.description}"/>
+		Priorité : <input type="number" name="priority" value ="${entry.priority}"/>
+		Estimation : <input type="number" name="estimation" value="${entry.estimation}"/>
+		Description : <input type="text" name ="description" value="${entry.description}"/>
 		<input type="submit" value="Modifier"/>
 	</form>
 	
@@ -52,6 +52,6 @@
 	</ul>
 	
 	<a href="/tp2WEB/DisplayBacklogServlet?id=${idBacklog}">Retour à la backlog</a>
-	<a href="index.html">Revenir à l'accueil</a>
+	<a href="index.jsp">Revenir à l'accueil</a>
 </body>
 </html>
