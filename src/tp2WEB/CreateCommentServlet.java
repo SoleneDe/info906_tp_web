@@ -37,14 +37,19 @@ public class CreateCommentServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String content = request.getParameter("content");
 		
-		long idE_long = Long.parseLong(idE);
-		
-		ejb.addComment(idE_long, name, content);
-		
-		Entry entry = ejb.getEntry(idE_long);
-		
-		request.setAttribute("entry", entry);	
-		request.getRequestDispatcher("/DisplayEntry.jsp").forward(request, response);
+		if("".equals(idE) || "".equals(name) || "".equals(content)) {
+			request.setAttribute("error", "Un champs n'est pas renseigné.");
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		} else {
+			long idE_long = Long.parseLong(idE);
+			
+			ejb.addComment(idE_long, name, content);
+			
+			Entry entry = ejb.getEntry(idE_long);
+			
+			request.setAttribute("entry", entry);	
+			request.getRequestDispatcher("/DisplayEntry.jsp").forward(request, response);
+		}
 	}
 
 	/**

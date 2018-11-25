@@ -46,34 +46,39 @@ public class UpdateEntryServlet extends HttpServlet {
 		String estimation = request.getParameter("estimation");
 		String description = request.getParameter("description");
 		
-		long idE_long = Long.parseLong(idE);
-		int priority_int = Integer.parseInt(priority);
-		int estimation_int = Integer.parseInt(estimation);
-		
-		Entry entry = ejbE.updateEntry(idE_long, name, priority_int, estimation_int, description);
-
-		long idB_long;
-		HttpSession session = request.getSession();
-		
-		if (idB != null)
-		{
-			idB_long = Long.parseLong(idB);
-			session.setAttribute("idBacklog", idB);
+		if("".equals(idE) || "".equals(name) || "".equals(priority) || "".equals(estimation) || "".equals(description)) {
+			request.setAttribute("error", "Il manque des informations.");
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		} else {
+			long idE_long = Long.parseLong(idE);
+			int priority_int = Integer.parseInt(priority);
+			int estimation_int = Integer.parseInt(estimation);
+			
+			Entry entry = ejbE.updateEntry(idE_long, name, priority_int, estimation_int, description);
+	
+			long idB_long;
+			HttpSession session = request.getSession();
+			
+			if (idB != null && !"".equals(idB))
+			{
+				idB_long = Long.parseLong(idB);
+				session.setAttribute("idBacklog", idB);
+			}
+			else
+			{
+				idB_long = Long.parseLong((String) session.getAttribute("idBacklog"));
+			}
+			
+			ejbB.sortEntries(idB_long);
+	
+			// Manage session to get username
+			String username = (String) session.getAttribute("username");
+	
+			request.setAttribute("entry", entry);
+			request.setAttribute("idBacklog", idB);
+			request.setAttribute("username", username);
+			request.getRequestDispatcher("/DisplayEntry.jsp").forward(request, response);
 		}
-		else
-		{
-			idB_long = Long.parseLong((String) session.getAttribute("idBacklog"));
-		}
-		
-		ejbB.sortEntries(idB_long);
-
-		// Manage session to get username
-		String username = (String) session.getAttribute("username");
-
-		request.setAttribute("entry", entry);
-		request.setAttribute("idBacklog", idB);
-		request.setAttribute("username", username);
-		request.getRequestDispatcher("/DisplayEntry.jsp").forward(request, response);
 	}
 
 	/**

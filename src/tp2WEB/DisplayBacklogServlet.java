@@ -38,7 +38,7 @@ public class DisplayBacklogServlet extends HttpServlet {
 		long id_long;
 		HttpSession session = request.getSession();
 		
-		if (id != null)
+		if (id != null && !"".equals(id))
 		{
 			id_long = Long.parseLong(id);
 			

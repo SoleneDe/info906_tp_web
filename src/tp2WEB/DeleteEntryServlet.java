@@ -38,28 +38,34 @@ public class DeleteEntryServlet extends HttpServlet {
 
 		String idB = request.getParameter("idBacklog");
 		String idE = request.getParameter("idEntry");
-		
-		long idB_long;
-		long idE_long = Long.parseLong(idE);
-		HttpSession session = request.getSession();
-		
-		if (idB != null)
-		{
-			idB_long = Long.parseLong(idB);
-			
-			// Manage session to get backlog id, to go back to the backlog
-			session.setAttribute("idBacklog", idB);
-		}
-		else
-		{
-			idB_long = Long.parseLong((String) session.getAttribute("idBacklog"));
-		}
-		
-		ejbB.deleteEntry(idB_long, idE_long);
 
-		Backlog backlog = ejbB.getBacklog(idB_long);
-		request.setAttribute("backlog", backlog);	
-		request.getRequestDispatcher("/DisplayBacklog.jsp").forward(request, response);
+		if("".equals(idE)) {
+			request.setAttribute("error", "Il manque l'id de l'entrée à supprimer.");
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		} else {
+			long idB_long;
+			long idE_long = Long.parseLong(idE);
+			HttpSession session = request.getSession();
+			
+			if (idB != null && !"".equals(idB))
+			{
+				idB_long = Long.parseLong(idB);
+				
+				// Manage session to get backlog id, to go back to the backlog
+				session.setAttribute("idBacklog", idB);
+			}
+			else
+			{
+				// No backlog id in the request, look for it in the session
+				idB_long = Long.parseLong((String) session.getAttribute("idBacklog"));
+			}
+			
+			ejbB.deleteEntry(idB_long, idE_long);
+	
+			Backlog backlog = ejbB.getBacklog(idB_long);
+			request.setAttribute("backlog", backlog);	
+			request.getRequestDispatcher("/DisplayBacklog.jsp").forward(request, response);
+		}
 	}
 
 	/**

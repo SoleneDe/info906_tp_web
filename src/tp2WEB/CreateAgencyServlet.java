@@ -35,10 +35,13 @@ public class CreateAgencyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
 		
-		Agency agency = ejb.createAgency(name);
-		
-		//request.setAttribute("agency", agency);	
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
+		if("".equals(name)) {
+			request.setAttribute("error", "Le nom de l'agence n'est pas renseigné.");
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		} else {
+			ejb.createAgency(name);
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+		}
 	}
 
 	/**

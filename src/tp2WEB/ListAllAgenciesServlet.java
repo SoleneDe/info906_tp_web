@@ -37,7 +37,6 @@ public class ListAllAgenciesServlet extends HttpServlet {
 		String name = request.getParameter("name");
 				
 		Collection<Agency> agencies = ejb.getAllAgencies();
-		
 
 		request.setAttribute("agencies", agencies);	
 		request.setAttribute("name", name);	// pour ré-afficher le nom déjà renseigné

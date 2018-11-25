@@ -42,23 +42,27 @@ public class CreateEntryServlet extends HttpServlet {
 		String estimation = request.getParameter("estimation");
 		String description = request.getParameter("description");
 		
-		String name = (String) request.getSession().getAttribute("username"); 
+		String name = (String) request.getSession().getAttribute("username");
 		
-		long idB_long = Long.parseLong(idB);
-		int priority_int = Integer.parseInt(priority);
-		int estimation_int = Integer.parseInt(estimation);
-		
-		Entry entry = ejbE.createEntry(name, priority_int, estimation_int, description);
-		
-		ejbB.addEntry(idB_long, entry);
-
-//		request.setAttribute("entry", entry);
-//		request.setAttribute("idBacklog", idB); // pour lien de retour vers la backlog
-//		request.getRequestDispatcher("/DisplayEntry.jsp").forward(request, response);
-
-		Backlog backlog = ejbB.getBacklog(idB_long);
-		request.setAttribute("backlog", backlog);	
-		request.getRequestDispatcher("/DisplayBacklog.jsp").forward(request, response);
+		if("".equals(idB) || "".equals(priority) || "".equals(estimation) || "".equals(description)) {
+			request.setAttribute("error", "Un champs n'est pas renseigné.");
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		} else if ("".equals(name)) {
+			request.setAttribute("error", "Aucun utilisateur connecté.");
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		} else {
+			long idB_long = Long.parseLong(idB);
+			int priority_int = Integer.parseInt(priority);
+			int estimation_int = Integer.parseInt(estimation);
+			
+			Entry entry = ejbE.createEntry(name, priority_int, estimation_int, description);
+			
+			ejbB.addEntry(idB_long, entry);
+	
+			Backlog backlog = ejbB.getBacklog(idB_long);
+			request.setAttribute("backlog", backlog);	
+			request.getRequestDispatcher("/DisplayBacklog.jsp").forward(request, response);
+		}
 	}
 
 	/**

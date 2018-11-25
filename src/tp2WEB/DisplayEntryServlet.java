@@ -35,19 +35,30 @@ public class DisplayEntryServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
-		String idB = request.getParameter("idBacklog"); // pour lien de retour vers la backlog
-		long id_long = Long.parseLong(id);
-		
-		Entry entry = ejb.getEntry(id_long);
 
-		// Manage session to get username
-		HttpSession session = request.getSession();
-		String username = (String) session.getAttribute("username");
+		if("".equals(id)) {
+			request.setAttribute("error", "Il manque l'id de l'entrée à afficher.");
+			request.getRequestDispatcher("/error.jsp").forward(request, response);
+		} else {
+			String idB = request.getParameter("idBacklog"); // pour lien de retour vers la backlog
+			long id_long = Long.parseLong(id);
+			
+			Entry entry = ejb.getEntry(id_long);
+	
+			// Manage session to get username
+			HttpSession session = request.getSession();
+			String username = (String) session.getAttribute("username");
 
-		request.setAttribute("entry", entry);
-		request.setAttribute("idBacklog", idB);
-		request.setAttribute("username", username);
-		request.getRequestDispatcher("/DisplayEntry.jsp").forward(request, response);
+			if("".equals(username)) {
+				request.setAttribute("error", "Il n'y a pas d'utilisateur connecté.");
+				request.getRequestDispatcher("/error.jsp").forward(request, response);
+			} else {
+				request.setAttribute("entry", entry);
+				request.setAttribute("idBacklog", idB);
+				request.setAttribute("username", username);
+				request.getRequestDispatcher("/DisplayEntry.jsp").forward(request, response);
+			}
+		}
 	}
 
 	/**
